@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<title>XO</title>
+<style>body{text-align:center;margin:20px}.b{display:grid;grid:repeat(3,60px)/repeat(3,60px);gap:1px;margin:auto}.c{width:60px;height:60px;border:1px solid #000;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer}.s{margin:10px}.btn{margin:5px}</style>
+<div class=s id=s>X/O</div><button class=btn onclick="p='X';i()">X</button><button class=btn onclick="p='O';i()">O</button>
+<div class=b id=b></div>
+<script>
+let a=['','','','','','','','',''],p,g;
+function i(){a=['','','','','','','','',''];g=0;r();s.innerText=p;if(p=='O')e();}
+function r(){let h='';for(let i=0;i<9;i++)h+='<div class=c onclick=m('+i+')>'+a[i]+'</div>';b.innerHTML=h;}
+function m(i){if(g||a[i])return;a[i]=p;r();if(w(p))return g=1;if(a.every(c=>c))return g=1;e();}
+function e(){if(g)return;let m=-1;let c=p=='X'?'O':'X';for(let i=0;i<9;i++)if(!a[i]&&(a[i]=c,w(c)&&(m=i),a[i]='',m>=0))break;if(m<0)for(let i=0;i<9;i++)if(!a[i]&&(a[i]=p,w(p)&&(m=i),a[i]='',m>=0))break;if(m<0)for(let i of[4,0,2,6,8,1,3,5,7])if(!a[i]){m=i;break}a[m]=c;r();if(w(c))return g=1;if(a.every(c=>c))return g=1;s.innerText=p;}
+function w(s){return[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(x=>x.every(i=>a[i]==s));}
+</script>
